@@ -14,3 +14,8 @@ Install Google API Python Client
 ```
  $ pip install --upgrade google-api-python-client oauth2client
 ```
+## Run
+
+```
+python bot.py
+```
