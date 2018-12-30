@@ -1,2 +1,2 @@
-# Minimal Telegram bot Google Drive API integration example
+# Telegram bot Google Drive API integration example
 
