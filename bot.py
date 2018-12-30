@@ -24,6 +24,9 @@ DRIVE = discovery.build('drive', 'v2', http=creds.authorize(Http()),cache_discov
 
 
 
+def start(bot, update):
+  update.message.reply_text("Upload files here.")
+
 
 def file_handler(bot, update):
   file = bot.getFile(update.message.document.file_id)
@@ -54,6 +57,7 @@ def error(bot, update, error):
 def main():
   updater = Updater(token='TOKEN')
   dispatcher = updater.dispatcher
+  updater.dispatcher.add_handler(CommandHandler('start', start))
   dispatcher.add_handler(MessageHandler(Filters.document,file_handler))
   updater.start_polling()
 
