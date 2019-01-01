@@ -19,7 +19,7 @@ Install Google API Python Client
 Clone the repo:
 
 ```
-https://github.com/zume2020/Telegram-bot-Google-Drive.git
+git clone https://github.com/zume2020/Telegram-bot-Google-Drive.git
 cd Telegram-bot-Google-Drive
 ```
 Run
