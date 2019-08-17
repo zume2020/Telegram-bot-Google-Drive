@@ -16,6 +16,11 @@ Install Google API Python Client
 ```
  $ pip install --upgrade google-api-python-client oauth2client
 ```
+
+## Setup
+
+To begin, you'll need an Access Token, And you could get it from  [@BotFather](https://t.me/botfather).
+
 ## Run
 
 Clone the repo:
