@@ -2,9 +2,10 @@
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.png?v=103)](https://opensource.org/licenses/mit-license.php)
-## Installing
 
 This is a Telegram bot uses Google API Python Client to upload files to your Google Drive.
+
+## Installing
 
 Install or upgrade python-telegram-bot with:
 
