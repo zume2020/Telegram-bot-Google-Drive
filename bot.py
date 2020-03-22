@@ -24,12 +24,12 @@ DRIVE = discovery.build('drive', 'v2', http=creds.authorize(Http()),cache_discov
 
 
 
-def start(bot, update):
-  update.message.reply_text("Upload files here.")
+def start(update, context):
+  context.bot.send_message(chat_id=update.effective_chat.id, text="Upload files here.")
 
 
-def file_handler(bot, update):
-  file = bot.getFile(update.message.document.file_id)
+def file_handler(update, context):
+  file = context.bot.getFile(update.message.document.file_id)
   file.download(update.message.document.file_name)
 
   FILES = ((update.message.document.file_name, False),(update.message.document.file_name, True),)
