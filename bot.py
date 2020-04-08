@@ -10,6 +10,8 @@ from telegram.ext import MessageHandler, Filters
 from apiclient import discovery
 from httplib2 import Http
 from oauth2client import file, client, tools
+from apiclient.http import MediaFileUpload
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -24,24 +26,27 @@ DRIVE = discovery.build('drive', 'v2', http=creds.authorize(Http()),cache_discov
 
 
 
-def start(bot, update):
-  update.message.reply_text("Upload files here.")
+def start(update, context):
+  context.bot.send_message(chat_id=update.effective_chat.id, text="Upload files here.")
 
 
-def file_handler(bot, update):
-  file = bot.getFile(update.message.document.file_id)
+def file_handler(update, context):
+  file = context.bot.getFile(update.message.document.file_id)
   file.download(update.message.document.file_name)
 
   FILES = ((update.message.document.file_name, False),(update.message.document.file_name, True),)
 
   for filename, convert in FILES:
-      metadata = {'title': filename}
-      res = DRIVE.files().insert(convert=convert, body=metadata,
-              media_body=filename, fields='mimeType,exportLinks').execute()
-      if res:
-          print('Uploaded "%s" (%s)' % (filename, res['mimeType']))
-          # silentremove(filename) #if u want to remove upladed file from local 
-          update.message.reply_text("Uploaded!")
+      metadata = {'name': filename}
+      media = MediaFileUpload(filename, chunksize=1024 * 1024, mimetype='application/x-rar-compressed',  resumable=True)
+      request = DRIVE.files().create(body=metadata,
+                                    media_body=media)
+      response = None
+      while response is None:
+        status, response = request.next_chunk()
+        if status:
+           print( "Uploaded %d%%." % int(status.progress() * 100))
+      print ("Upload Complete!")
 
 
 
